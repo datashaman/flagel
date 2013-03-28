@@ -1,1 +1,1 @@
-<input id="{{ id }}" name="{{ name }}" type="text" />
+<input id="{{ id }}" name="{{ name }}" class="ajax" type="hidden" />

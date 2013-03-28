@@ -1,4 +1,5 @@
-from bottle import run, get, template, static_file
+import json
+from bottle import run, get, template, static_file, request
 
 l = (
     ('One', 1),
@@ -22,9 +23,12 @@ def render(legend, name, options, multiple=False, **kwargs):
     kwargs['name'] = name
     kwargs['options'] = options
     kwargs['multiple'] = multiple
+
     format = kwargs.pop('format', default_format(options, multiple))
+
     if 'id' not in kwargs:
         kwargs['id'] = idify_name(name)
+
     return template('element.tpl', legend=legend, element=template('%s.tpl' % format, **kwargs))
 
 def default_format(options, multiple=False):
@@ -63,6 +67,14 @@ def root():
     ]
 
     return template('page.tpl', content=''.join(elements))
+
+@get('/ajax')
+def ajax():
+    print request.params.q
+    return json.dumps({
+        'more': False,
+        'results': [{ 'id': k, 'text': text } for text, k in l if text.lower().startswith(request.params.q.lower())]
+    })
 
 @get('/styles/<filename:path>')
 def styles(filename):

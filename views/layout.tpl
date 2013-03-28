@@ -13,9 +13,33 @@
     <script type="text/javascript" src="/plugins/kickstart/js/kickstart.js"></script>
     <script type="text/javascript">
     jQuery(document).ready(function($) {
-        $('select').select2({
-            width: '100%'
-        });
+        config = {
+          width: '100%',
+          ajax: {
+            dataType: 'json',
+            url: '/ajax',
+            data: function(term, page) {
+              return {
+                q: term,
+                per: 10,
+                page: page
+              }
+            },
+            results: function(data, page) {
+              return {
+                results: data.results,
+                more: data.more
+              }
+            }
+          }
+        };
+
+        $('select.local').select2({ width: '100%' });
+
+        $('input.ajax').select2(config);
+
+        config.multiple = true;
+        $('input.ajax-multiple').select2(config);
     });
     </script>
 </head>
