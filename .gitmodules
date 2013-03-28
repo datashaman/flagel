@@ -1,0 +1,3 @@
+[submodule "static/plugins/select2"]
+	path = static/plugins/select2
+	url = git://github.com/ivaynberg/select2.git
