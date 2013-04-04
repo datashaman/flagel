@@ -34,7 +34,10 @@ if not Number.table_exists():
 SHORT_POINT = 5
 LONG_POINT = 9
 
-def render_select(legend, name, options, multiple=False, **kwargs):
+def label(text, content):
+    return '<label>%s<br />%s</label>' % (text, content)
+
+def select(name, options, multiple=False, **kwargs):
     kwargs['name'] = name
     kwargs['options'] = [option for option in options]
     kwargs['multiple'] = multiple
@@ -44,7 +47,10 @@ def render_select(legend, name, options, multiple=False, **kwargs):
     if 'id' not in kwargs:
         kwargs['id'] = idify_name(name)
 
-    return template('element.tpl', legend=legend, element=template('%s.tpl' % format, **kwargs))
+    return template('%s.tpl' % format, **kwargs)
+
+def fieldset(legend, content):
+    return template('fieldset.tpl', legend=legend, content=content)
 
 def default_format(options, multiple=False):
     len_options = len(options)
@@ -73,17 +79,17 @@ def idify_name(name):
 def root():
     numbers = Number.select().order_by(Number.sequence)
 
-    elements = [
-        render_select('Single', 'numbers', numbers.limit(1)),
-        render_select('Single short', 'numbers', numbers.limit(SHORT_POINT)),
-        render_select('Multiple short', 'numbers', numbers.limit(SHORT_POINT), multiple=True),
-        render_select('Single medium', 'numbers', numbers.limit(LONG_POINT)),
-        render_select('Multiple medium', 'numbers', numbers.limit(LONG_POINT), multiple=True),
-        render_select('Single long', 'numbers', numbers),
-        render_select('Multiple long', 'numbers', numbers, multiple=True),
+    select_elements = [
+        fieldset('Single', select('numbers', numbers.limit(1))),
+        fieldset('Single short', select('numbers', numbers.limit(SHORT_POINT))),
+        fieldset('Multiple short', select('numbers', numbers.limit(SHORT_POINT), multiple=True)),
+        fieldset('Single medium', select('numbers', numbers.limit(LONG_POINT))),
+        fieldset('Multiple medium', select('numbers', numbers.limit(LONG_POINT), multiple=True)),
+        fieldset('Single long', select('numbers', numbers)),
+        fieldset('Multiple long', select('numbers', numbers, multiple=True)),
     ]
 
-    return template('page.tpl', content=''.join(elements))
+    return template('page.tpl', select_content=''.join(select_elements))
 
 @get('/ajax')
 def ajax():
