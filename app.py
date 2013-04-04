@@ -91,7 +91,8 @@ def ajax():
     offset = (int(request.params.get('page', 1)) - 1) * limit
     base = Number.select().where(peewee.fn.Lower(Number.label) % ('%s*' % request.params.q.lower()))
     count = base.count()
-    numbers = base.limit(limit)
+
+    numbers = base.limit(limit).offset(offset)
 
     return json.dumps({
         'more': count > (offset + limit),
