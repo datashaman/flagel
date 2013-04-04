@@ -6,7 +6,7 @@
     name="{{ name}}"
 % end
 >
-    %for text, value in options:
-        <option value="{{ value }}">{{ text }}</option>
+    %for option in options:
+        <option value="{{ option.id }}">{{ option.label }}</option>
     %end
 </select>

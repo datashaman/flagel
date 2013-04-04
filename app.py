@@ -1,30 +1,45 @@
+#!/usr/bin/env python
+
 import json
+import peewee
+
 from bottle import run, get, template, static_file, request
 
-l = (
-    ('One', 1),
-    ('Two', 2),
-    ('Three', 3),
-    ('Four', 4),
-    ('Five', 5),
-    ('Six', 6),
-    ('Seven', 7),
-    ('Eight', 8),
-    ('Nine', 9),
-    ('Ten', 10),
-    ('Eleven', 11),
-    ('Twelve', 12),
-)
+from models import Number
+
+Number.drop_table()
+
+if not Number.table_exists():
+    Number.create_table()
+
+    numbers = (
+        ('One', 1),
+        ('Two', 2),
+        ('Three', 3),
+        ('Four', 4),
+        ('Five', 5),
+        ('Six', 6),
+        ('Seven', 7),
+        ('Eight', 8),
+        ('Nine', 9),
+        ('Ten', 10),
+        ('Eleven', 11),
+        ('Twelve', 12),
+    )
+
+    for label, sequence in numbers:
+        number = Number.create(sequence=sequence,
+                      label=label)
 
 SHORT_POINT = 5
 LONG_POINT = 9
 
-def render(legend, name, options, multiple=False, **kwargs):
+def render_select(legend, name, options, multiple=False, **kwargs):
     kwargs['name'] = name
-    kwargs['options'] = options
+    kwargs['options'] = [option for option in options]
     kwargs['multiple'] = multiple
 
-    format = kwargs.pop('format', default_format(options, multiple))
+    format = kwargs.pop('format', default_format(kwargs['options'], multiple))
 
     if 'id' not in kwargs:
         kwargs['id'] = idify_name(name)
@@ -56,24 +71,31 @@ def idify_name(name):
 
 @get('/')
 def root():
+    numbers = Number.select().order_by(Number.sequence)
+
     elements = [
-        render('Single', 'numbers', [l[0]]),
-        render('Single short', 'numbers', l[:SHORT_POINT]),
-        render('Multiple short', 'numbers', l[:SHORT_POINT], multiple=True),
-        render('Single medium', 'numbers', l[:LONG_POINT]),
-        render('Multiple medium', 'numbers', l[:LONG_POINT], multiple=True),
-        render('Single long', 'numbers', l),
-        render('Multiple long', 'numbers', l, multiple=True),
+        render_select('Single', 'numbers', numbers.limit(1)),
+        render_select('Single short', 'numbers', numbers.limit(SHORT_POINT)),
+        render_select('Multiple short', 'numbers', numbers.limit(SHORT_POINT), multiple=True),
+        render_select('Single medium', 'numbers', numbers.limit(LONG_POINT)),
+        render_select('Multiple medium', 'numbers', numbers.limit(LONG_POINT), multiple=True),
+        render_select('Single long', 'numbers', numbers),
+        render_select('Multiple long', 'numbers', numbers, multiple=True),
     ]
 
     return template('page.tpl', content=''.join(elements))
 
 @get('/ajax')
 def ajax():
-    print request.params.q
+    limit = request.params.get('per', 5)
+    offset = (int(request.params.get('page', 1)) - 1) * limit
+    base = Number.select().where(peewee.fn.Lower(Number.label) % ('%s*' % request.params.q.lower()))
+    count = base.count()
+    numbers = base.limit(limit)
+
     return json.dumps({
-        'more': False,
-        'results': [{ 'id': k, 'text': text } for text, k in l if text.lower().startswith(request.params.q.lower())]
+        'more': count > (offset + limit),
+        'results': [{ 'id': number.id, 'text': number.label } for number in numbers]
     })
 
 @get('/styles/<filename:path>')
