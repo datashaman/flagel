@@ -7,7 +7,7 @@ from bottle import run, get, template, static_file, request
 
 from models import Number
 
-Number.drop_table()
+# Number.drop_table()
 
 if not Number.table_exists():
     Number.create_table()
@@ -87,15 +87,17 @@ def root():
 
 @get('/ajax')
 def ajax():
-    limit = request.params.get('per', 5)
-    offset = (int(request.params.get('page', 1)) - 1) * limit
-    base = Number.select().where(peewee.fn.Lower(Number.label) % ('%s*' % request.params.q.lower()))
+    q = request.params.q.lower()
+    base = Number.select().where(peewee.fn.Lower(Number.label) % ('%s*' % q))
     count = base.count()
 
-    numbers = base.limit(limit).offset(offset)
+    page = int(request.params.get('page', 1))
+    limit = int(request.params.get('per', SHORT_POINT))
+
+    numbers = base.paginate(page, limit)
 
     return json.dumps({
-        'more': count > (offset + limit),
+        'more': count > (page * limit),
         'results': [{ 'id': number.id, 'text': number.label } for number in numbers]
     })
 
