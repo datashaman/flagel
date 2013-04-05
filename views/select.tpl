@@ -1,12 +1,11 @@
 <select id="{{ id }}"
+  data-bind="foreach: medium_options"
 % if multiple:
-    name="{{ name}}[]"
+    name="{{ name }}[]"
     multiple="multiple"
 % else:
-    name="{{ name}}"
+    name="{{ name }}"
 % end
 >
-    %for option in options:
-        <option value="{{ option.id }}">{{ option.label }}</option>
-    %end
+  <option data-bind="value: id, text: text" />
 </select>

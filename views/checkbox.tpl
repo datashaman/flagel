@@ -1,2 +1,1 @@
-% option = options[0]
-<input type="checkbox" id="{{ id }}-{{ option.id }}" name="{{ name }}" value="{{ option.id }}" /> {{ option.label }}
+<label><input type="checkbox" data-bind="attr: { id: '{{ id }}-' + numbers[0].id }, value: numbers[0].id, text: numbers[0].text" name="{{ name }}" /> <span data-bind="text: numbers[0].text" /></label>

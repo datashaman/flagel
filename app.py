@@ -94,18 +94,25 @@ def root():
 @get('/ajax')
 def ajax():
     q = request.params.q.lower()
-    base = Number.select().where(peewee.fn.Lower(Number.label) % ('%s*' % q))
+    base = Number.select().where(peewee.fn.Lower(Number.label) % ('%s*' % q)).order_by(Number.sequence)
     count = base.count()
 
     page = int(request.params.get('page', 1))
     limit = int(request.params.get('per', SHORT_POINT))
 
-    numbers = base.paginate(page, limit)
+    if 'page' in request.params or 'per' in request.params:
+        numbers = base.paginate(page, limit)
+    else:
+        numbers = base
 
-    return json.dumps({
-        'more': count > (page * limit),
+    payload = {
         'results': [{ 'id': number.id, 'text': number.label } for number in numbers]
-    })
+    }
+
+    if 'page' in request.params or 'per' in request.params:
+        payload['more'] = count > (page * limit)
+
+    return json.dumps(payload)
 
 @get('/styles/<filename:path>')
 def styles(filename):
