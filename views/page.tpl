@@ -1,16 +1,16 @@
 <form class="vertical">
-    <div id="params">
-      Short Point: <input type="range" data-bind="value: short_point(), attr: { max: medium_point() - 1 }" min="2" />
-      Medium Point: <input type="range" data-bind="value: medium_point(), attr: { min: short_point() + 1 }" />
-    </div>
-
     <ul class="tabs left">
     <li><a href="#tab-select">Select</a></li>
     </ul>
 
     <form>
     <div id="tab-select" class="tab-content grid flex">
-    {{! select_content }}
+        <div id="params">
+        Short Point (&lt;= <output data-bind="text: short_point"></output>): <input type="range" data-bind="value: short_point" min="2" max="12" />
+        Medium Point (&lt;= <output data-bind="text: medium_point"></output>): <input type="range" data-bind="value: medium_point" min="2" max="12" />
+        </div>
+
+        {{! select_content }}
     </div>
     </form>
 </form>

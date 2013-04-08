@@ -31,8 +31,16 @@ if not Number.table_exists():
         number = Number.create(sequence=sequence,
                       label=label)
 
+
 SHORT_POINT = 5
 LONG_POINT = 9
+
+POINTS = (
+    (1, 'checkbox'),
+    (SHORT_POINT, 'checkbox-group', 'radio-group'),
+    (LONG_POINT, 'select'),
+    ('autocomplete-list', 'autocomplete'),
+)
 
 def label(text, content):
     return '<label>%s<br />%s</label>' % (text, content)
@@ -52,25 +60,26 @@ def select(name, options, multiple=False, **kwargs):
 def fieldset(legend, content):
     return template('fieldset.tpl', legend=legend, content=content)
 
+def resolve_multiple(defn, multiple):
+    if len(defn) == 1:
+        return defn[0]
+    else:
+        return defn[0] if multiple else defn[1]
+
 def default_format(options, multiple=False):
     len_options = len(options)
+    len_points = len(POINTS)
 
-    if len_options == 1:
-        format = 'checkbox'
-    elif len_options <= SHORT_POINT:
-        if multiple:
-            format = 'checkbox-group'
+    for index, defn in enumerate(POINTS):
+        defn = list(defn)
+        if index < len_points - 1:
+            point = defn.pop(0)
+            if len_options <= point:
+                return resolve_multiple(defn, multiple)
         else:
-            format = 'radio-group'
-    elif len_options <= LONG_POINT:
-        format = 'select'
-    else:
-        if multiple:
-            format = 'autocomplete-list'
-        else:
-            format = 'autocomplete'
+            return resolve_multiple(defn, multiple)
 
-    return format
+    raise 'Should not happen'
 
 def idify_name(name):
     return name
