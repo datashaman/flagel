@@ -4,8 +4,8 @@
 <head>
     <title>{{ title or 'No title' }}</title>
     <link rel="stylesheet" type="text/css" href="/plugins/select2/select2.css" />
-    <link rel="stylesheet" type="text/css" href="/styles/style.css" />
     <link rel="stylesheet" type="text/css" href="/plugins/kickstart/css/kickstart.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/style.css" />
 </head>
 
 <body>
@@ -80,7 +80,11 @@
 
           ko.applyBindings(new ViewModel());
 
+          /*
+          $(':date').dateinput();
           $(':range').rangeinput();
+          */
+
           $('select.local').select2({ width: '100%' });
           $('input.ajax').select2(config);
           config.multiple = true;
