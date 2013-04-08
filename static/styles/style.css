@@ -1,1 +1,2 @@
 ul { margin: 0 0 0 0; list-style-type: none; }
+input[type='number'] { display: inline !important; padding: 0; margin-bottom: 0 !important; max-width: 100px; }
