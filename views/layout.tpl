@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/plugins/kickstart/css/kickstart.css" />
     <link rel="stylesheet" type="text/css" href="/styles/style.css" />
 
-    <script data-main="scripts/app" src="/scripts/require-jquery.js"></script>
+    <script data-main="scripts/main" src="/scripts/require-jquery.js"></script>
 </head>
 
 <body>
