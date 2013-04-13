@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+require(['jquery', 'knockout-2.2.1', 'view-model', 'domReady!'], function($, ko, ViewModel) {
     ko.bindingHandlers.select2 = {
         init: function(element, valueAccessor, allBindingsAccessor) {
             var obj = valueAccessor(),
@@ -25,35 +25,7 @@ jQuery(document).ready(function($) {
         url: '/ajax',
         dataType: 'json',
         success: function(data) {
-            var ViewModel = function() {
-                var that = this;
-
-                this.numbers = data.results;
-                this.short_point = ko.observable(5);
-                this.medium_point = ko.observable(9);
-                this.short_options = ko.computed(function() { return that.numbers.slice(0, that.short_point()); });
-                this.medium_options = ko.computed(function() { return that.numbers.slice(0, that.medium_point()); });
-
-                this.ajax = {
-                    dataType: 'json',
-                    url: '/ajax',
-                    data: function(term, page) {
-                        return {
-                            q: term,
-                            per: 10,
-                            page: page
-                        }
-                    },
-                    results: function(data, page) {
-                        return {
-                            results: data.results,
-                            more: data.more
-                        }
-                    }
-                };
-            };
-
-            ko.applyBindings(new ViewModel());
+            ko.applyBindings(new ViewModel(data.results));
         }
     });
 });
