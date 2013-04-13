@@ -1,12 +1,12 @@
-define(['knockout-2.2.1'], function(ko) {
-    return function ViewModel(numbers) {
+define(['knockout-2.2.1', 'knockout-select2'], function(ko) {
+    return function ViewModel(options) {
         var that = this;
 
-        this.numbers = numbers;
+        this.options = options;
         this.short_point = ko.observable(5);
         this.medium_point = ko.observable(9);
-        this.short_options = ko.computed(function() { return that.numbers.slice(0, that.short_point()); });
-        this.medium_options = ko.computed(function() { return that.numbers.slice(0, that.medium_point()); });
+        this.short_options = ko.computed(function() { return that.options.slice(0, that.short_point()); });
+        this.medium_options = ko.computed(function() { return that.options.slice(0, that.medium_point()); });
 
         this.ajax = {
             dataType: 'json',
