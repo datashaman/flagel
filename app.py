@@ -3,7 +3,7 @@
 import json
 import peewee
 
-from bottle import run, get, template, static_file, request
+from bottle import run, get, template, static_file, request, debug
 
 from models import Number
 
@@ -135,4 +135,5 @@ def scripts(filename):
 def plugins(filename):
     return static_file(filename, root='static/plugins')
 
+debug(True)
 run(reloader=True)
