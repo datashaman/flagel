@@ -5,6 +5,8 @@
 
     optimize: "uglify2",
 
+    stubModules: ['cs'],
+
     paths: {
         "jquery": "empty:"
     },
@@ -14,6 +16,7 @@
         //included since it is already in require-jquery.js
         {
             name: "main",
+            exclude: ['coffee-script']
         }
     ]
 })
