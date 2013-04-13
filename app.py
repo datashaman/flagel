@@ -125,15 +125,15 @@ def ajax():
 
 @get('/styles/<filename:path>')
 def styles(filename):
-    return static_file(filename, root='static/styles')
+    return static_file(filename, root='static-build/styles')
 
 @get('/scripts/<filename:path>')
 def scripts(filename):
-    return static_file(filename, root='static/scripts')
+    return static_file(filename, root='static-build/scripts')
 
 @get('/plugins/<filename:path>')
 def plugins(filename):
-    return static_file(filename, root='static/plugins')
+    return static_file(filename, root='static-build/plugins')
 
 debug(True)
 run(reloader=True)
