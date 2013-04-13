@@ -1,4 +1,4 @@
-define(['knockout-2.2.1'], function(ko) {
+define(['knockout-2.2.1', '../plugins/select2/select2'], function(ko) {
     ko.bindingHandlers.select2 = {
         init: function(element, valueAccessor, allBindingsAccessor) {
             var obj = valueAccessor(),
