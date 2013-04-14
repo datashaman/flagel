@@ -3,7 +3,7 @@
 import json
 import peewee
 
-from bottle import run, get, template, static_file, request, debug
+from bottle import run, get, template, static_file, request, debug, default_app
 
 from models import Number
 
@@ -135,5 +135,9 @@ def scripts(filename):
 def plugins(filename):
     return static_file(filename, root='static-build/plugins')
 
-debug(True)
-run(reloader=True)
+
+if __name__ == '__main__':
+    debug(True)
+    run(reloader=True)
+else:
+    application = default_app()
