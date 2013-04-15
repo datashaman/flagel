@@ -126,7 +126,7 @@ def ajax():
 
     return json.dumps(payload)
 
-def get_root(path):
+def get_root(path=''):
     base = 'static' if DEBUG else 'static-build'
     return '%s/%s' % (base, path)
 
@@ -134,6 +134,10 @@ for path in ['styles', 'scripts', 'plugins', 'components']:
     def func(path=path):
         get('/%s/<filename:path>' % path)(lambda filename: static_file(filename, root=get_root(path)))
     func()
+
+@get('/main.js')
+def main():
+    return static_file('main.js', root=get_root())
 
 debug(DEBUG)
 

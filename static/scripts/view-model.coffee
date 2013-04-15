@@ -1,4 +1,4 @@
-define ['knockout', 'knockout-select2'], (ko) ->
+define ['knockout', 'scripts/knockout-select2'], (ko) ->
     (options) =>
         @options = options
         @short_point = ko.observable(5)
