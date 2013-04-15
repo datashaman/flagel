@@ -15,6 +15,9 @@
         {
             name: "main",
             exclude: ["coffee-script"]
+        },
+        {
+            name: 'components/requirejs/require',
         }
     ]
 })
