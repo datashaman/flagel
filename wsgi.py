@@ -124,15 +124,19 @@ def ajax():
 
 @get('/styles/<filename:path>')
 def styles(filename):
-    return static_file(filename, root='static-build/styles')
+    return static_file(filename, root='static/styles')
 
 @get('/scripts/<filename:path>')
 def scripts(filename):
-    return static_file(filename, root='static-build/scripts')
+    return static_file(filename, root='static/scripts')
 
 @get('/plugins/<filename:path>')
 def plugins(filename):
-    return static_file(filename, root='static-build/plugins')
+    return static_file(filename, root='static/plugins')
+
+@get('/components/<filename:path>')
+def components(filename):
+    return static_file(filename, root='static/components')
 
 
 os.chdir(os.path.dirname(__file__))

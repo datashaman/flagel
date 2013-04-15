@@ -4,12 +4,16 @@
     dir: "../../static-build",
 
     optimize: "uglify2",
+    uglify2: {
+        output: {
+            beautify: false
+        }
+    },
 
     stubModules: ['cs'],
 
-    paths: {
-        "jquery": "empty:"
-    },
+    mainConfigFile: 'main.js',
+    skipDirOptimize: true,
 
     modules: [
         //Optimize the application files. jQuery is not 

@@ -1,4 +1,15 @@
-require(['jquery', 'knockout-2.2.1', 'cs!view-model', 'domReady!'], function($, ko, ViewModel) {
+requirejs.config({
+    paths: {
+        knockout: '../components/knockout/build/output/knockout-latest',
+        cs: '../components/require-cs/cs',
+        select2: '../components/select2/select2',
+        jquery: '../components/jquery/jquery',
+        domReady: '../components/requirejs-domready/domReady',
+        'coffee-script': '../components/require-cs/coffee-script'
+    }
+});
+
+require(['jquery', 'knockout', 'cs!view-model', 'domReady!'], function($, ko, ViewModel) {
     $.ajax({
         url: '/ajax',
         dataType: 'json',
