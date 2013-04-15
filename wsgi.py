@@ -8,6 +8,10 @@ from models import Number
 from bottle import run, get, template, static_file, request, debug, default_app
 
 
+DEBUG = False
+
+os.chdir(os.path.dirname(__file__))
+
 if not Number.table_exists():
     Number.create_table()
 
@@ -122,27 +126,18 @@ def ajax():
 
     return json.dumps(payload)
 
-@get('/styles/<filename:path>')
-def styles(filename):
-    return static_file(filename, root='static/styles')
+def get_root(path):
+    base = 'static' if DEBUG else 'static-build'
+    return '%s/%s' % (base, path)
 
-@get('/scripts/<filename:path>')
-def scripts(filename):
-    return static_file(filename, root='static/scripts')
+for path in ['styles', 'scripts', 'plugins', 'components']:
+    def func(path=path):
+        get('/%s/<filename:path>' % path)(lambda filename: static_file(filename, root=get_root(path)))
+    func()
 
-@get('/plugins/<filename:path>')
-def plugins(filename):
-    return static_file(filename, root='static/plugins')
-
-@get('/components/<filename:path>')
-def components(filename):
-    return static_file(filename, root='static/components')
-
-
-os.chdir(os.path.dirname(__file__))
+debug(DEBUG)
 
 if __name__ == '__main__':
-    debug(True)
-    run(reloader=True)
+    run(reloader=DEBUG)
 else:
     application = default_app()

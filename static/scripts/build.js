@@ -12,8 +12,13 @@
 
     stubModules: ['cs'],
 
+    preserveLicenseComments: false,
+    generateSourceMaps: true,
+
     mainConfigFile: 'main.js',
     skipDirOptimize: true,
+
+    optimizeCss: 'standard.keepComments',
 
     modules: [
         //Optimize the application files. jQuery is not 
@@ -22,5 +27,9 @@
             name: "main",
             exclude: ['coffee-script']
         }
-    ]
+    ],
+
+    throwWhen: {
+        optimize: true
+    }
 })
