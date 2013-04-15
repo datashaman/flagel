@@ -127,7 +127,7 @@ def ajax():
     return json.dumps(payload)
 
 def get_root(path=''):
-    base = 'static' if DEBUG else 'static-build'
+    base = 'static' if DEBUG else 'build'
     return '%s/%s' % (base, path)
 
 for path in ['styles', 'scripts', 'plugins', 'components']:
