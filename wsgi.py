@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
+import os
 import json
 import peewee
 
+from models import Number
 from bottle import run, get, template, static_file, request, debug, default_app
 
-from models import Number
-
-# Number.drop_table()
 
 if not Number.table_exists():
     Number.create_table()
@@ -135,6 +134,8 @@ def scripts(filename):
 def plugins(filename):
     return static_file(filename, root='static-build/plugins')
 
+
+os.chdir(os.path.dirname(__file__))
 
 if __name__ == '__main__':
     debug(True)

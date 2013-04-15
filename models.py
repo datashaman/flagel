@@ -1,6 +1,8 @@
+import os
 import peewee
 
-db = peewee.SqliteDatabase('database.db')
+
+db = peewee.SqliteDatabase(os.getenv('DB'))
 
 class Number(peewee.Model):
     sequence = peewee.IntegerField()
