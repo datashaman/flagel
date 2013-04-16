@@ -8,7 +8,7 @@ from models import Number
 from bottle import run, get, template, static_file, request, debug, default_app
 
 
-DEBUG = False
+DEBUG = True
 
 os.chdir(os.path.dirname(__file__))
 
