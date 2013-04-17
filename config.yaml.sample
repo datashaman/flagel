@@ -1,0 +1,13 @@
+common: &COMMON
+  debug: true
+  static: static
+  database: db/development.db
+
+development:
+  <<: *COMMON
+
+production:
+  <<: *COMMON
+  debug: false
+  static: build
+  database: db/production.db

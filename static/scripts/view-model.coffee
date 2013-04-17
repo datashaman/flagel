@@ -3,9 +3,9 @@ define ['knockout', 'scripts/knockout-select2'], (ko) ->
         @options = options
         @short_point = ko.observable(5)
         @medium_point = ko.observable(9)
-        @short_options = ko.computed () =>
+        @short_options = ko.computed =>
             @options.slice 0, @short_point()
-        @medium_options = ko.computed () =>
+        @medium_options = ko.computed =>
             @options.slice 0, @medium_point()
         @ajax =
             dataType: 'json'

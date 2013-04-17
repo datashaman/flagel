@@ -1,8 +1,10 @@
 import os
 import peewee
 
+from config import config
 
-db = peewee.SqliteDatabase(os.getenv('DB'))
+
+db = peewee.SqliteDatabase(config['database'])
 
 class Number(peewee.Model):
     sequence = peewee.IntegerField()
@@ -11,3 +13,24 @@ class Number(peewee.Model):
     class Meta:
         database = db
         order_by = ('sequence',)
+
+if not Number.table_exists():
+    Number.create_table()
+
+    numbers = (
+        ('One', 1),
+        ('Two', 2),
+        ('Three', 3),
+        ('Four', 4),
+        ('Five', 5),
+        ('Six', 6),
+        ('Seven', 7),
+        ('Eight', 8),
+        ('Nine', 9),
+        ('Ten', 10),
+        ('Eleven', 11),
+        ('Twelve', 12),
+    )
+
+    for label, sequence in numbers:
+        Number.create(sequence=sequence, label=label)
