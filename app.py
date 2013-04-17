@@ -3,7 +3,7 @@ import json
 import peewee
 
 from models import Number
-from bottle import run, get, template, static_file, request, debug, default_app, TEMPLATE_PATH
+from bottle import run, get, view, template, static_file, request, debug, default_app, TEMPLATE_PATH
 
 from config import config, APP_ROOT
 
