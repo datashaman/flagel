@@ -1,8 +1,7 @@
-import os
-from bottle import debug, default_app
-
-from config import config
 import app
+
+from bottle import debug, default_app
+from config import config
 
 
 debug(config['debug'])

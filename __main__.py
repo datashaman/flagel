@@ -1,10 +1,7 @@
-import os
-import sys
+import app
 
 from bottle import debug, run
-
 from config import config
-import app
 
 
 DEBUG = config['debug']

@@ -1,11 +1,10 @@
 {
-  "name": "static",
+  "name": "flagel",
   "version": "0.0.0",
   "dependencies": {
     "jquery": "~1.9.1",
     "requirejs": "~2.1.5",
     "requirejs-domready": "~2.0.1",
-    "select2": "~3.3.2",
     "require-cs": "~0.4.3",
     "knockout": "~2.2.1"
   }
