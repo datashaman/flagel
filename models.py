@@ -1,10 +1,10 @@
 import os
 import peewee
 
-from config import config
+from config import config, APP_ROOT
 
 
-db = peewee.SqliteDatabase(config['database'])
+db = peewee.SqliteDatabase(os.path.join(APP_ROOT, config['database']))
 
 class Number(peewee.Model):
     sequence = peewee.IntegerField()

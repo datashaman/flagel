@@ -3,13 +3,12 @@ import json
 import peewee
 
 from models import Number
-from bottle import run, get, template, static_file, request, debug, default_app
+from bottle import run, get, template, static_file, request, debug, default_app, TEMPLATE_PATH
 
-from config import config
+from config import config, APP_ROOT
 
 
-# Must be in this folder for the app to work
-os.chdir(os.path.abspath(os.path.dirname(__file__)))
+TEMPLATE_PATH.append(os.path.join(APP_ROOT, 'views'))
 
 SHORT_POINT = 5
 LONG_POINT = 9
@@ -102,14 +101,14 @@ def ajax():
 
     return json.dumps(payload)
 
-def get_root(path=''):
-    return '%s/%s' % (config['static'], path)
+def static_root(path=''):
+    return '%s/%s/%s' % (APP_ROOT, config['static'], path)
 
 for path in ['styles', 'scripts', 'plugins', 'components']:
     def func(path=path):
-        get('/%s/<filename:path>' % path)(lambda filename: static_file(filename, root=get_root(path)))
+        get('/%s/<filename:path>' % path)(lambda filename: static_file(filename, root=static_root(path)))
     func()
 
 @get('/main.js')
 def main():
-    return static_file('main.js', root=get_root())
+    return static_file('main.js', root=static_root())
