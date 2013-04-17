@@ -63,6 +63,7 @@ def idify_name(name):
     return name
 
 @get('/')
+@view('root')
 def root():
     numbers = Number.select().order_by(Number.sequence)
 
@@ -109,6 +110,7 @@ for path in ['styles', 'scripts', 'plugins', 'components']:
         get('/%s/<filename:path>' % path)(lambda filename: static_file(filename, root=static_root(path)))
     func()
 
-@get('/main.js')
-def main():
-    return static_file('main.js', root=static_root())
+# Static file catch-all route
+@get('/<filename:path>')
+def static_files(filename):
+    return static_file(filename, root='%s/%s' % (APP_ROOT, config['static']))
