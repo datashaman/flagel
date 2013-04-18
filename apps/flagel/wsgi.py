@@ -1,10 +1,10 @@
 import app
 
 from bottle import debug, default_app
-from apps import load_config
+from apps import config
 
 
-CONFIG = load_config('flagel')
+CONFIG = config.load('flagel')
 
 debug(CONFIG['debug'])
 application = default_app()

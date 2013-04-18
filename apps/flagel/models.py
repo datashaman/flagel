@@ -4,7 +4,7 @@ import peewee
 from apps import config
 
 
-CONFIG = config.load_config('flagel')
+CONFIG = config.load('flagel')
 APP_ROOT = config.app_root('flagel')
 
 db = peewee.SqliteDatabase(os.path.join(APP_ROOT, CONFIG['database']))

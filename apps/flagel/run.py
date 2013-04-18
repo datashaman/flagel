@@ -9,7 +9,7 @@ from apps import config
 import routes
 
 
-CONFIG = config.load_config('flagel')
+CONFIG = config.load('flagel')
 
 DEBUG = CONFIG['debug']
 debug(DEBUG)

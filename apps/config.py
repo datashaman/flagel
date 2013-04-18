@@ -5,7 +5,7 @@ import yaml
 APP_ENV = os.getenv('APP_ENV', 'development')
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-def load_config(app_name):
+def load(app_name):
     config_filepath = os.path.join(ROOT, 'config', '%s.yaml' % app_name)
     config = None
 

@@ -3,7 +3,7 @@ from bottle import get, view, static_file, TEMPLATE_PATH
 from apps import config
 
 
-CONFIG = config.load_config('flagel')
+CONFIG = config.load('flagel')
 APP_ROOT = config.app_root('flagel')
 TEMPLATE_PATH.append(os.path.join(APP_ROOT, 'views'))
 
