@@ -1,7 +1,7 @@
 ({
-    mainConfigFile: "./static/main.js",
-    appDir: "./static/",
-    dir: "./build/static/",
+    mainConfigFile: "./app/static/main.js",
+    appDir: "./app/static/",
+    dir: "./static/",
     baseUrl: "./",
     skipDirOptimize: true,
     optimize: "uglify2",

@@ -36,5 +36,6 @@ nosetests.xml
 .project
 .pydevproject
 
-static/components
+components
 config.yaml
+static
