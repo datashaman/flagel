@@ -1,5 +1,11 @@
-from bottle import get, view, static_file
-from config import config, APP_ROOT
+import os
+from bottle import get, view, static_file, TEMPLATE_PATH
+from apps import config
+
+
+CONFIG = config.load_config('flagel')
+APP_ROOT = config.app_root('flagel')
+TEMPLATE_PATH.append(os.path.join(APP_ROOT, 'views'))
 
 @get('/')
 @view('root')
@@ -9,4 +15,5 @@ def root():
 # Static file catch-all route
 @get('/<filename:path>')
 def static_files(filename):
-    return static_file(filename, root='%s/%s' % (APP_ROOT, config['static']))
+    root = '%s/%s' % (config.ROOT, CONFIG['static'])
+    return static_file(filename, root=root)

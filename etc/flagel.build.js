@@ -1,7 +1,7 @@
 ({
-    mainConfigFile: "../app/static/main.js",
-    appDir: "../app/static/",
-    dir: "../static/",
+    mainConfigFile: "../apps/flagel/static/main.js",
+    appDir: "../apps/flagel/static/",
+    dir: "../static/flagel/",
     baseUrl: "./",
     skipDirOptimize: true,
     optimize: "uglify2",
