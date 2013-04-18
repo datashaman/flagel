@@ -1,12 +1,5 @@
-import os
-
-from bottle import get, view, static_file, TEMPLATE_PATH
+from bottle import get, view, static_file
 from config import config, APP_ROOT
-
-
-# Add the views directory to template path, since we cannot be
-# sure of our current working directory
-TEMPLATE_PATH.append(os.path.join(APP_ROOT, 'views'))
 
 @get('/')
 @view('root')
