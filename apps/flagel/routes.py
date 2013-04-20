@@ -8,8 +8,13 @@ APP_ROOT = config.app_root('flagel')
 TEMPLATE_PATH.append(os.path.join(APP_ROOT, 'views'))
 
 @get('/')
-@view('root')
-def root():
+@view('home')
+def home():
+    return {}
+
+@get('/about')
+@view('page')
+def page():
     return {}
 
 # Static file catch-all route

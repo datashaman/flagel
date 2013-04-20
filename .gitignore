@@ -1,5 +1,7 @@
 *.py[cod]
 
+/apps/*/.sass-cache
+/apps/*/static/styles
 /components
 /config/*.yaml
 /db/*.db
