@@ -9,17 +9,14 @@
     <link href="/styles/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
 <![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script data-main="main" src="/require-jquery.js"></script>
 </head>
 
 <body>
 <div id="root">
     <div id="top-bar">
         <div class="grid">
-            <ul class="menu">
-                <li><a href="/">Home</a></li>
-                <li class="right"><a href="">Profile</a></li>
-                <li class="right"><a href="/about">About</a></li>
+            <ul class="menu" data-bind="foreach: menu">
+                <li data-bind="css: $data[2]"><a data-bind="attr: { href: $data[0] }, text: $data[1]"></a></li>
             </ul>
         </div>
     </div>
@@ -35,6 +32,7 @@
     Footer
 </div>
 
+<script data-main="main" src="/require-jquery.js"></script>
 </body>
 
 </html>

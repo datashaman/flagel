@@ -11,11 +11,11 @@ TEMPLATE_PATH.append(os.path.join(APP_ROOT, 'views'))
 @view('home')
 def home():
     return {}
-
-@get('/about')
-@view('page')
-def page():
-    return {}
+#
+# @get('/about')
+# @view('page')
+# def page():
+#     return {}
 
 # Static file catch-all route
 @get('/<filename:path>')
