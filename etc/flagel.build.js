@@ -13,7 +13,10 @@
             exclude: ["coffee-script"]
         },
         {
-            name: 'components/requirejs/require',
+            name: 'require-jquery'
         }
-    ]
+    ],
+    paths: {
+        jquery: 'empty:'
+    }
 })

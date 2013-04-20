@@ -9,7 +9,7 @@
     <link href="/styles/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
 <![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script data-main="main" src="/components/requirejs/require.js"></script>
+<script data-main="main" src="/require-jquery.js"></script>
 </head>
 
 <body>
