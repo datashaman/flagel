@@ -9,7 +9,7 @@ define ['jquery', 'knockout', 'sammy'], ($, ko, Sammy) ->
             startSlide: 0
             infiniteLoop: true
             captions: true
-            adaptiveHeight: false
+            adaptiveHeight: true
             touchEnabled: true
             pause: 8000
             autoControls: true
@@ -20,29 +20,27 @@ define ['jquery', 'knockout', 'sammy'], ($, ko, Sammy) ->
     () ->
         model = @
 
-        @menu = [['', 'Home', false]
-                 ['#about', 'About', false],
-                 ['#contact', 'Contact', true]]
+        @menu = [['',          'Home',      false]
+                 ['#about',    'About',     false],
+                 ['#contact',  'Contact',   true ]]
 
-        @currentPage = ko.observable('')
+        @content = ko.observable()
+        @current = ko.observable()
 
-        @openPage = (page) =>
-            location.hash = page
-
-        @app = Sammy '#content', () ->
+        @app = Sammy () ->
             @get '#home', (ctx) ->
                 @redirect ''
 
             @get '#:page', (ctx) ->
                 require ['template!./templates/' + @params.page + '.html'], (tpl) =>
-                    @swap tpl, () =>
-                        model.currentPage('#' + @params.page)
+                    model.content(tpl)
+                    model.current('#' + @params.page)
 
             @get '', ->
                 require ['template!./templates/home.html'], (tpl) =>
-                    @swap tpl, () =>
-                        model.currentPage('')
-                        $('.slideshow').activateSlider()
+                    model.content(tpl)
+                    model.current('')
+                    $('.slideshow').activateSlider()
 
             return
 
