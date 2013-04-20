@@ -6,3 +6,6 @@ serve-production: build-static
 
 build-static:
 	@bin/r.js -o etc/flagel.build.js
+
+watch:
+	cd apps/flagel; compass watch
