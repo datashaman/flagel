@@ -1,0 +1,59 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
+@import "compass/utilities"
+@import "compass/css3/border-radius"
+@import "compass/layout/sticky-footer"
+@import url(../vendor/kickstart/css/kickstart.css)
+@import url(http://fonts.googleapis.com/css?family=Arimo:400,700)
+
+@include sticky-footer(160px, '#root', '#root-footer', '#footer')
+
+$baseFontFamily: "Arimo", arial, verdana, sans-serif
+$baseFontSize: 1
+$baseLineHeight: 1
+$linkColor: #ffcc00
+
+*
+  font-family: $baseFontFamily
+
+body
+  margin: 0
+  background-color: #ffffff
+
+a
+  color: $linkColor
+  text-decoration: none
+  &:hover
+    text-decoration: underline
+
+#banner
+  height: 160px
+  background-color: #00ffcc
+
+.menu.vertical
+  background: none
+  border: none
+
+#top-bar
+  border-bottom: 1px solid #ccc
+  color: #ffffff
+  background: #000000
+  /*
+    background: -moz-linear-gradient(top, rgba(252,252,252,1) 0%, rgba(224,224,224,1) 100%)
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(224,224,224,1)))
+    background: -webkit-linear-gradient(top, rgba(252,252,252,1) 0%,rgba(224,224,224,1) 100%)
+    background: -o-linear-gradient(top, rgba(252,252,252,1) 0%,rgba(224,224,224,1) 100%)
+    background: linear-gradient(top, rgba(252,252,252,1) 0%,rgba(224,224,224,1) 100%)
+  .menu
+    background: none
+    border: none
+    li a
+      color: #ffffff
+
+#footer
+  color: #000000
+  background-color: #00eeff
+  padding-top: 20px

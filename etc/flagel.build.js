@@ -1,7 +1,7 @@
 ({
-    mainConfigFile: "./static/main.js",
-    appDir: "./static/",
-    dir: "./build/static/",
+    mainConfigFile: "../apps/flagel/static/main.js",
+    appDir: "../apps/flagel/static/",
+    dir: "../static/flagel/",
     baseUrl: "./",
     skipDirOptimize: true,
     optimize: "uglify2",
@@ -13,7 +13,10 @@
             exclude: ["coffee-script"]
         },
         {
-            name: 'components/requirejs/require',
+            name: 'require-jquery'
         }
-    ]
+    ],
+    paths: {
+        jquery: 'empty:'
+    }
 })
