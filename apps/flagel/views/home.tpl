@@ -9,9 +9,9 @@
     </div>
     <div class="col_9">
         <ul class="slideshow">
-            <li><img src="http://placehold.it/550x200" width="550" height="200" /></li>
-            <li><img src="http://placehold.it/550x200" width="550" height="200" /></li>
-            <li><img src="http://placehold.it/550x200" width="550" height="200" /></li>
+            <li><img src="http://placehold.it/550x200.png&text=Image+One" width="550" height="200" /></li>
+            <li><img src="http://placehold.it/550x200.png&text=Image+Two" width="550" height="200" /></li>
+            <li><img src="http://placehold.it/550x200.png&text=Image+Three" width="550" height="200" /></li>
         </ul>
     </div>
     <div class="center col_3">
