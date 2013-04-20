@@ -20,33 +20,29 @@ define ['jquery', 'knockout', 'sammy'], ($, ko, Sammy) ->
     () ->
         model = @
 
-        @menu = [['', 'Home']
-                 ['#about', 'About', 'right'],
-                 ['#contact', 'Contact', 'right']]
+        @menu = [['', 'Home', false]
+                 ['#about', 'About', false],
+                 ['#contact', 'Contact', true]]
 
-        @currentPageId = ko.observable()
-        @currentPage = ko.observable()
+        @currentPage = ko.observable('')
 
         @openPage = (page) =>
             location.hash = page
 
         @app = Sammy '#content', () ->
-            @get '#/', (ctx) ->
-                require ['template!./templates/home.html'], (tpl) =>
-                    @swap tpl, () ->
-                        model.currentPageId 'home'
-                        $('.slideshow').activateSlider()
-
             @get '#home', (ctx) ->
-                @redirect '#/'
+                @redirect ''
 
             @get '#:page', (ctx) ->
                 require ['template!./templates/' + @params.page + '.html'], (tpl) =>
-                    @swap tpl, () ->
-                        model.currentPageId @params.page
+                    @swap tpl, () =>
+                        model.currentPage('#' + @params.page)
 
             @get '', ->
-                @app.runRoute 'get', '#/'
+                require ['template!./templates/home.html'], (tpl) =>
+                    @swap tpl, () =>
+                        model.currentPage('')
+                        $('.slideshow').activateSlider()
 
             return
 
