@@ -1,7 +1,7 @@
 import os
 import json
 import requests
-from bottle import get, post, view, request, static_file, TEMPLATE_PATH, abort
+from bottle import get, post, request, response, static_file, TEMPLATE_PATH, abort
 from apps import config
 
 
@@ -9,18 +9,20 @@ CONFIG = config.load('flagel')
 APP_ROOT = config.app_root('flagel')
 TEMPLATE_PATH.append(os.path.join(APP_ROOT, 'views'))
 
-@get('/')
-@view('home')
-def home():
-    return {}
+def set_headers():
+    response.set_header('Access-Control-Allow-Origin', '*')
 
 @get('/auth/status')
 def status():
+    set_headers()
+
     session = request.environ.get('beaker.session')
     return dict(email=session.get('email'))
 
 @post('/auth/login')
 def login():
+    set_headers()
+
     # The request has to have an assertion for us to verify
     if 'assertion' not in request.forms:
         abort(400)
@@ -29,7 +31,7 @@ def login():
     assertion = request.forms.get('assertion')
 
     # audience = '%s://%s' % (request.urlparts.scheme, request.urlparts.netloc)
-    audience = 'http://localhost:8080'
+    audience = CONFIG['frontend']
 
     data = dict(assertion=assertion, audience=audience)
     resp = requests.post('https://verifier.login.persona.org/verify', data=data, verify=True)
@@ -45,6 +47,7 @@ def login():
             session = request.environ.get('beaker.session')
             session['email'] = verification_data['email']
             session.save()
+
             return dict(email=session['email'])
 
     # Oops, something failed. Abort.
@@ -52,6 +55,8 @@ def login():
 
 @post('/auth/logout')
 def logout():
+    set_headers()
+
     # Log the user out by deleting the session
     session = request.environ.get('beaker.session')
     session.delete()
