@@ -1,3 +1,5 @@
+Beaker==1.6.4
 PyYAML==3.10
 bottle==0.10.11
 peewee==2.1.0
+requests==1.2.0

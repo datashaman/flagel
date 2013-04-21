@@ -7,14 +7,15 @@
 @import "compass/css3/border-radius"
 @import "compass/layout/sticky-footer"
 @import url(../vendor/kickstart/css/kickstart.css)
-@import url(http://fonts.googleapis.com/css?family=Arimo:400,700)
+// @import url(http://fonts.googleapis.com/css?family=Arimo:400,700)
+@import persona-buttons
 
 @include sticky-footer(160px, '#root', '#root-footer', '#footer')
 
 $baseFontFamily: "Arimo", arial, verdana, sans-serif
 $baseFontSize: 1
 $baseLineHeight: 1
-$linkColor: #ffcc00
+$linkColor: #0088cc
 
 *
   font-family: $baseFontFamily
@@ -53,7 +54,12 @@ a
     li a
       color: #ffffff
 
+#auth
+  margin: 17px 0
+  text-align: right
+
 #footer
   color: #000000
-  background-color: #00eeff
+  border-top: 1px solid #e5e5e5
+  background-color: #f5f5f5
   padding-top: 20px

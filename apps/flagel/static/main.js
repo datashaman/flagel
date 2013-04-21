@@ -17,7 +17,11 @@ requirejs.config({
     }
 });
 
-require(['jquery', 'knockout', 'cs!scripts/viewModel', 'domReady!', 'kickstart'], function($, ko, ViewModel, doc) {
+require(['jquery', 'knockout', 'cs!models/view', 'cs!models/auth', 'domReady!', 'kickstart'], function($, ko, ViewModel, AuthModel, doc) {
     var viewModel = new ViewModel();
-    ko.applyBindings(viewModel);
+    ko.applyBindings(viewModel, document.getElementById('content'));
+    ko.applyBindings(viewModel, document.getElementById('menu'));
+
+    var authModel = new AuthModel();
+    ko.applyBindings(authModel, document.getElementById('auth'));
 });
