@@ -2,9 +2,17 @@ define ['jquery', 'knockout', 'sammy', 'cs!scripts/activateSlider'], ($, ko, Sam
     () ->
         model = @
 
-        @menu = [['',          'Home',      false]
-                 ['#about',    'About',     false],
-                 ['#contact',  'Contact',   true ]]
+        @menu = [['',
+                    title: 'Home'
+                    right: false
+                ],
+                ['#about',
+                    title: 'About'
+                    right: false
+                ],
+                ['#contact',
+                    title: 'Contact'
+                    right: true]]
 
         @content = ko.observable()
         @current = ko.observable()
