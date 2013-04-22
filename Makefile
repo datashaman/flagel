@@ -1,19 +1,22 @@
-serve-development: serve-backend serve-frontend compass-watch tail-logs
+install:
+	pip install -r etc/requirements.pip
+	bower install
+	bundle install
 
-serve-backend:
-	python apps/flagel/run.py >> logs/backend.log 2>&1 &
+serve-development: compass-development-compile
+	bundle exec foreman start -f Procfile.development
+
+serve-production: compass-production-compile build-static
+	bundle exec foreman start -f Procfile.production
 
 tail-logs:
 	tail -f logs/*.log
 
-serve-frontend:
-	cd apps/flagel/static; python -m SimpleHTTPServer >> ../../../logs/frontend.log 2>&1 &
-
-serve-production: build-static
-	APP_ENV=production python apps/flagel/run.py
-
 build-static:
 	bin/r.js -o etc/flagel.build.js
 
-compass-watch:
-	cd apps/flagel; compass watch --quiet --boring >> ../../logs/compass.log 2>&1 &
+compass-development-compile:
+	cd apps/flagel; bundle exec compass compile --force >> ../../logs/compass.log 2>&1 &
+
+compass-production-compile:
+	cd apps/flagel; bundle exec compass compile -e production --force >> ../../logs/compass.log 2>&1 &

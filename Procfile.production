@@ -1,0 +1,3 @@
+backend: bash -c "APP_ENV=production python apps/flagel/run.py 2>&1 | tee -a logs/backend.log"
+frontend: bash -c "cd static; python -m SimpleHTTPServer 2>&1 | tee -a ../logs/frontend.log"
+compass: bash -c "cd apps/flagel; bundle exec compass watch -e production --quiet"
